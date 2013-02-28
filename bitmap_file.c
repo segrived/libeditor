@@ -49,9 +49,8 @@ void read_bmp_file(char *file_name, BMPFILE *bitmap) {
 void write_bmp_file(BMPFILE *bitmap, char *file_name) {
     FILE *f;
     f = fopen(file_name, "wb");
-    if (f == NULL) {
+    if (f == NULL)
         perror ("Error opening file");
-    }
 
     fwrite(&bitmap->file_header, 1, sizeof(bitmap->file_header), f);
     fwrite(&bitmap->info_header, 1, sizeof(bitmap->info_header), f);
@@ -61,13 +60,14 @@ void write_bmp_file(BMPFILE *bitmap, char *file_name) {
 
     byte *line = (byte*)malloc(line_size_in_bytes * sizeof(byte));
 
-    int x, y;
+    int start_index;
 
-    for(x = 0; x < bitmap->info_header.biHeight; x++) {
-        for(y = 0; y < bitmap->info_header.biWidth; y++) {
-            line[y * 3]     = bitmap->pixels[x][y].b;
-            line[y * 3 + 1] = bitmap->pixels[x][y].g;
-            line[y * 3 + 2] = bitmap->pixels[x][y].r;
+    for(int x = 0; x < bitmap->info_header.biHeight; x++) {
+        for(int y = 0; y < bitmap->info_header.biWidth; y++) {
+            start_index = y * 3;
+            line[start_index]     = bitmap->pixels[x][y].b;
+            line[start_index + 1] = bitmap->pixels[x][y].g;
+            line[start_index + 2] = bitmap->pixels[x][y].r;
         }
         fwrite(line, line_size_in_bytes, 1, f);
     }

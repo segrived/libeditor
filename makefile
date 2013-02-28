@@ -8,4 +8,4 @@ lib:
 
 tests: lib
 	cp ./build/libeditor.dll ./tests/libeditor.dll
-	gcc tests/test1.c -g -L./bin -leditor -std=c99 -o tests/test1.exe
+	gcc tests/test1.c -g -L./build -leditor -std=c99 -o tests/test1.exe

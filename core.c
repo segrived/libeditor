@@ -26,7 +26,6 @@ CONV_FILTER *create_conv_filter(int height, int width, float factor_div, float o
 void sort_pixels_by_components(PIXEL* input, size_t size)
 {
     int sf;
-
     for(int i = 0; i < size - 1; i++) {
         sf = 0;
         for(int j = 0; j < size - i; j++) {
