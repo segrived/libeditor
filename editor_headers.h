@@ -27,8 +27,8 @@ typedef struct
     unsigned short biBitCount;      // Количество  бит на пиксел
     unsigned int   biCompression;   // Используемый алгоритм сжатия
     unsigned int   biSizeImage;     // Размер изображения без учёта заголовков
-    int            biXPelsPerMeter; // 
-    int            biYPelsPerMeter; //
+    int            biXPelsPerMeter; // Пикселов по горизонтали на метр
+    int            biYPelsPerMeter; // Пикселов по вертикали на метр
     unsigned int   biClrUsed;       // Размер цветовой палитры
     unsigned int   biClrImportant;  // Количество "важных" цветов
 } BITMAPINFOHEADER;
@@ -83,6 +83,7 @@ CONV_FILTER * cf_motion_blur(int);
 CONV_FILTER * cf_simple_blur(int);
 CONV_FILTER * cf_soft_blur(int);
 CONV_FILTER * cf_simple_edge_detection();
+CONV_FILTER * cf_soft_sharpen();
 
 // Считывает BMP файл в структуру
 void read_bmp_file(char*, BMPFILE*);

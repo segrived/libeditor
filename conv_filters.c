@@ -66,3 +66,23 @@ CONV_FILTER * cf_simple_edge_detection() {
 
     return filter;
 }
+
+CONV_FILTER * cf_soft_sharpen() {
+    CONV_FILTER *filter = create_conv_filter(5, 5, 8.0f, 0.0f);
+
+    float f[5][5] = {
+        { -1.0f, -1.0f, -1.0f, -1.0f, -1.0f },
+        { -1.0f,  2.0f,  2.0f,  2.0f, -1.0f },
+        { -1.0f,  2.0f,  8.0f,  2.0f, -1.0f },
+        { -1.0f,  2.0f,  2.0f,  2.0f, -1.0f },
+        { -1.0f, -1.0f, -1.0f, -1.0f, -1.0f }
+    };
+
+    for(int i = 0; i < filter->width; i++) {
+        for(int j = 0; j < filter->height; j++) {
+            filter->kernel[i][j] = f[i][j];
+        }
+    }
+
+    return filter;
+}
