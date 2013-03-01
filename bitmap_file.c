@@ -31,16 +31,16 @@ void read_bmp_file(char *file_name, BMPFILE *bitmap) {
 
     bitmap->pixels = (PIXEL**)malloc(sizeof(PIXEL *) * bitmap->info_header.biHeight);
 
-    unsigned int x, y, si;
-    for(x = 0; x < bitmap->info_header.biHeight; x++) {
-        si = line_size_in_bytes * x;
+    unsigned int start_line_index, start_pixel_index;
+    for(int x = 0; x < bitmap->info_header.biHeight; x++) {
+        start_line_index = line_size_in_bytes * x;
         bitmap->pixels[x] = (PIXEL*)malloc(sizeof(PIXEL) * bitmap->info_header.biWidth);
         int startIndex;
-        for(y = 0; y < bitmap->info_header.biWidth; y++) {
-            startIndex = si + y * 3;
-            bitmap->pixels[x][y].r = pixel_data[startIndex + 2];
-            bitmap->pixels[x][y].g = pixel_data[startIndex + 1];
-            bitmap->pixels[x][y].b = pixel_data[startIndex];
+        for(int y = 0; y < bitmap->info_header.biWidth; y++) {
+            start_pixel_index = start_line_index + y * 3;
+            bitmap->pixels[x][y].r = pixel_data[start_pixel_index + 2];
+            bitmap->pixels[x][y].g = pixel_data[start_pixel_index + 1];
+            bitmap->pixels[x][y].b = pixel_data[start_pixel_index];
         }
     }
     fclose(f);

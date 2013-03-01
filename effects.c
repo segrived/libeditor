@@ -58,14 +58,15 @@ void effect_conv_filter(BMPFILE *bitmap, CONV_FILTER *filter)
     unsigned int fhd2 = (unsigned int)(filter->height / 2);
     unsigned int fwd2 = (unsigned int)(filter->width / 2);
     
-    for (int x = 0; x < bitmap->info_header.biHeight; x++) {
-        for (int y = 0; y < bitmap->info_header.biWidth; y++) {
+    for (int x = 0; x < imageHeight; x++) {
+        for (int y = 0; y < imageWidth; y++) {
             cr = 0.0f, cg = 0.0f, cb = 0.0f;
             for (int fx = 0; fx < filter->height; fx++) {
                 for (int fy = 0; fy < filter->width; fy++) {
+                    // Вычисление используемых координат изображения
                     ix = (x - fhd2 + fx + imageHeight) % imageHeight;
                     iy = (y - fwd2 + fy + imageWidth) % imageWidth;
-                    
+
                     cr += bitmap->pixels[ix][iy].r * filter->kernel[fx][fy];
                     cg += bitmap->pixels[ix][iy].g * filter->kernel[fx][fy];
                     cb += bitmap->pixels[ix][iy].b * filter->kernel[fx][fy];
@@ -77,13 +78,10 @@ void effect_conv_filter(BMPFILE *bitmap, CONV_FILTER *filter)
         }
     }
 
-    for (int i = 0; i < bitmap->info_header.biHeight; i++) {
-        for (int j = 0; j < bitmap->info_header.biWidth; j++) {
-            bitmap->pixels[i][j].r = new_image[i][j].r;
-            bitmap->pixels[i][j].g = new_image[i][j].g;
-            bitmap->pixels[i][j].b = new_image[i][j].b;
-        }
+    for(int i = 0; i < imageHeight; i++) {
+        memcpy(&bitmap->pixels[i], &new_image[i], sizeof(new_image[i]));
     }
+    
     free(new_image);
 }
 
@@ -118,10 +116,8 @@ void effect_oil(BMPFILE *bitmap, unsigned int radius)
         }
     }
 
-    for (int i = 0; i < bitmap->info_header.biHeight; i++) {
-        for (int j = 0; j < bitmap->info_header.biWidth; j++) {
-            bitmap->pixels[i][j] = new_image[i][j];
-        }
+    for(int i = 0; i < imageHeight; i++) {
+        memcpy(&bitmap->pixels[i], &new_image[i], sizeof(new_image[i]));
     }
 
     free(new_image);
@@ -161,10 +157,8 @@ void effect_pen(BMPFILE *bitmap, unsigned int radius)
         }
     }
 
-    for (int i = 0; i < bitmap->info_header.biHeight; i++) {
-        for (int j = 0; j < bitmap->info_header.biWidth; j++) {
-            bitmap->pixels[i][j] = new_image[i][j];
-        }
+    for(int i = 0; i < imageHeight; i++) {
+        memcpy(&bitmap->pixels[i], &new_image[i], sizeof(new_image[i]));
     }
     
     free(new_image);
