@@ -35,7 +35,6 @@ void read_bmp_file(char *file_name, BMPFILE *bitmap) {
     for(int x = 0; x < bitmap->info_header.biHeight; x++) {
         start_line_index = line_size_in_bytes * x;
         bitmap->pixels[x] = (PIXEL*)malloc(sizeof(PIXEL) * bitmap->info_header.biWidth);
-        int startIndex;
         for(int y = 0; y < bitmap->info_header.biWidth; y++) {
             start_pixel_index = start_line_index + y * 3;
             bitmap->pixels[x][y].r = pixel_data[start_pixel_index + 2];

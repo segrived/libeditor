@@ -13,7 +13,9 @@ void debug_file_header(BMPFILE *bitmap)
     printf("\n");
 }
 
-void debug_info_header(BMPFILE *bitmap) {
+
+void debug_info_header(BMPFILE *bitmap)
+{
     printf("BITMAPINFOHEADER (size: %d bytes)\n", sizeof(bitmap->info_header));
     printf("biSize:          %d\n", bitmap->info_header.biSize);
     printf("biWidth:         %d\n", bitmap->info_header.biWidth);
@@ -29,11 +31,11 @@ void debug_info_header(BMPFILE *bitmap) {
     printf("\n");
 }
 
-void debug_pixels(BMPFILE *bitmap) {
-    int i, j;
-    printf("\n");
-    for(i = 0; i < bitmap->info_header.biWidth; i++) {
-        for(j = 0; j < bitmap->info_header.biHeight; j++) {
+
+void debug_pixels(BMPFILE *bitmap)
+{
+    for(int i = 0; i < bitmap->info_header.biWidth; i++) {
+        for(int j = 0; j < bitmap->info_header.biHeight; j++) {
         printf("[ %02x %02x %02x ] ",
             bitmap->pixels[i][j].r,
             bitmap->pixels[i][j].g,

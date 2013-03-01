@@ -137,8 +137,7 @@ void effect_pen(BMPFILE *bitmap, unsigned int radius)
     unsigned int imageWidth = bitmap->info_header.biWidth;
 
     int ix, iy;
-    unsigned int nr, ng, nb;
-
+    
     PIXEL* tmp = malloc(radius * radius * sizeof(PIXEL *));
 
     for (int x = 0; x < bitmap->info_header.biHeight; x++) {
